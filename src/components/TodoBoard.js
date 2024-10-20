@@ -17,7 +17,6 @@ const TodoBoard = ({ todoList, toggleComplete, deleteItem }) => {
       ) : (
         <h2>There is no Item to show</h2>
       )}
-      {/* <TodoItem/> will be here once we get the todoList */}
     </div>
   );
 };

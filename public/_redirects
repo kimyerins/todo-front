@@ -1,1 +1,2 @@
-/api/* https://todo-demo-01-f8c1a2d044cd.herokuapp.com/api/:splat 200
+/api/* https://todo-demo-01-f8c1a2d044cd.herokuapp.com/api/:splat 200,
+/* /index.html 200

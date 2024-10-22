@@ -14,7 +14,18 @@ const LoginPage = ({ user, setUser }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setError("");
+
     try {
+      if (!email) {
+        setError("이메일을 입력해주세요.");
+        return;
+      }
+      if (!password) {
+        setError("비밀번호를 입력해주세요.");
+        return;
+      }
+
       const response = await api.post("/user/login", { email, password });
       if (response.status === 200) {
         setUser(response.data.user);
@@ -22,10 +33,17 @@ const LoginPage = ({ user, setUser }) => {
         api.defaults.headers["authorization"] = "Bearer " + response.data.token;
         setError("");
         navigate("/");
+      } else if (response.data && response.data.error) {
+        // 서버에서 반환한 에러 메시지 처리
+        setError(response.data.error);
+      } else {
+        setError("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
       }
-      throw new Error(response.message);
     } catch (error) {
-      setError(error.message);
+      if (!user) {
+        setError(error.error);
+      }
+      //setError(error.message);
     }
   };
   if (user) {

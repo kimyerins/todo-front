@@ -15,22 +15,36 @@ const RegisterPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError("");
+
     try {
+      if (!name) {
+        setError("이름을 입력해주세요.");
+        return;
+      }
+      if (!email) {
+        setError("이메일을 입력해주세요.");
+        return;
+      }
+      if (!password) {
+        setError("비밀번호를 입력해주세요.");
+        return;
+      }
       if (password !== secPassword) {
-        throw new Error("패스워드가 일치하지 않습니다. 다시 입력해주세요");
+        setError("패스워드가 일치하지 않습니다. 다시 입력해주세요");
+        return;
       }
-      if (email) {
-        throw new Error("이미 가입이 된 유저 입니다.");
-      }
+
       //api
       const response = await api.post("/user", { name, email, password });
+      console.log("response", response);
       if (response.status === 200) {
         navigate("/login");
       } else {
-        throw new Error(response.data.error);
+        throw new Error(response.error.message || "회원가입에 실패했습니다.");
       }
     } catch (error) {
-      setError(error.message);
+      setError(error.error);
     }
   };
   return (

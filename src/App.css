@@ -86,3 +86,13 @@ button {
   color: #ffffff;
   border: none;
 }
+
+.logout {
+  text-align: right;
+  padding: 0 30px;
+  margin-top: 80px;
+  cursor: pointer;
+}
+.logout:hover {
+  text-decoration: underline;
+}
